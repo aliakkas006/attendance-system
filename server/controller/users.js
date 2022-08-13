@@ -1,4 +1,3 @@
-const User = require('../models/User');
 const userService = require('../service/user');
 const error = require('../utils/error');
 const authService = require('../service/auth');

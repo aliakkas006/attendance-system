@@ -13,12 +13,12 @@ const adminAttendanceSchema = new Schema(
       type: String,
       required: true,
       enum: ['RUNNING', 'COMPLETED'],
-      default: 'RUNNING'
+      default: 'RUNNING',
     },
   },
   { timestamps: true }
 );
 
-const adminAttendance = model('adminAttendance', adminAttendanceSchema);
+const AdminAttendance = model('AdminAttendance', adminAttendanceSchema);
 
-module.exports = adminAttendance;
+module.exports = AdminAttendance;

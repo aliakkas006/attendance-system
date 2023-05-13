@@ -23,6 +23,7 @@ const getAttendance = async (req, res, next) => {
       adminAttendance: id,
       user: req.user._id,
     });
+
     if (attendance) throw error('Already Register', 400);
 
     attendance = new StudentAttendance({
@@ -32,8 +33,8 @@ const getAttendance = async (req, res, next) => {
 
     await attendance.save();
     return res.status(201).json(attendance);
-  } catch (e) {
-    next(e);
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -51,8 +52,8 @@ const getAttendanceStatus = async (_req, res, next) => {
     }
 
     return res.status(200).json(running);
-  } catch (e) {
-    next(e);
+  } catch (err) {
+    next(err);
   }
 };
 

@@ -5,7 +5,7 @@ const userController = require('../controller/users');
  * get user by id
  * @method GET
  */
-router.get('/:userId', userController.getUserById);
+router.get('/:userId', userController.getUserByID);
 
 /**
  * update user by id
@@ -26,11 +26,11 @@ router.patch('/:userId', userController.patchUserById);
 router.delete('/:userId', userController.deleteUserById);
 
 /**
- * Get all users include:
- * filter
- * sort
- * pagination
- * select properties
+ * Get all users, include:
+ *  - filter
+ *  - sort
+ *  - pagination
+ *  - select properties
  * @route /api/v1/users?sort=["by","name"]
  * @method GET
  * @visibility private

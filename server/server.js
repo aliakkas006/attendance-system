@@ -8,15 +8,28 @@ const app = express();
 app.use(express.json());
 app.use(routes);
 
-app.get('/', (_, res) => {
-  res.send('Attendance system application is running now!');
+app.get('/private', authenticate, (_req, res) => {
+  return res.status(200).json({ message: 'This is private route' });
 });
 
-app.use((err, _req, res) => {
+app.get('/public', authenticate, (_req, res) => {
+  return res.status(200).json({ message: 'This is public route' });
+});
+
+app.get('/', (_, res) => {
+  const obj = {
+    name: 'Akkas',
+    email: 'ali@gmail.com',
+  };
+  res.json(obj);
+});
+
+app.use((err, req, res, next) => {
   console.log(err);
+
   const message = err.message ? err.message : 'Server Error Occured';
   const status = err.status ? err.status : 500;
-  
+
   res.status(status).json({ message });
 });
 

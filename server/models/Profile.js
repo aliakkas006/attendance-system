@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose');
 
 const profileSchema = new Schema({
   firstName: String,
@@ -7,10 +7,10 @@ const profileSchema = new Schema({
   avatar: String,
   user: {
     type: Schema.Types.ObjectId,
-    ref: "User",
+    ref: 'User',
   },
 });
 
-const Profile = model("Profile", profileSchema);
+const Profile = model('Profile', profileSchema);
 
 module.exports = Profile;

@@ -1,30 +1,32 @@
+const User = require('../models/User');
 const userService = require('../service/user');
-const error = require('../utils/error');
 const authService = require('../service/auth');
+const error = require('../utils/error');
 
-const getUsers = async (req, res, next) => {
+const getUsers = async (_req, res, next) => {
   /**
    * TODO: filter, sort, pagination, select
    */
+
   try {
     const users = await userService.findUsers();
     res.status(200).json(users);
-  } catch (e) {
-    next(e);
+  } catch (err) {
+    next(err);
   }
 };
 
-const getUserById = (req, res, next) => {
+const getUserByID = (req, res, next) => {
   const { userId } = req.params;
 
   try {
     const user = userService.findUserByProperty('_id', userId);
 
-    if (!user) throw error('User not found', 404);
+    if (!user) throw error('User not found!', 404);
 
     res.status(200).json(user);
-  } catch (e) {
-    next();
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -40,9 +42,9 @@ const postUser = async (req, res, next) => {
       accountStatus,
     });
 
-    res.status(201).json(user);
-  } catch (e) {
-    next(e);
+    return res.status(201).json(user);
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -58,11 +60,11 @@ const putUserById = (req, res, next) => {
       accountStatus,
     });
 
-    if (!user) throw error('User not found', 404);
+    if (!user) throw error('User not found!', 404);
 
     return res.status(200).json(user);
-  } catch (e) {
-    next();
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -73,7 +75,7 @@ const patchUserById = async (req, res, next) => {
   try {
     const user = await userService.findUserByProperty('_id', userId);
 
-    if (!user) throw error('User not found', 404);
+    if (!user) throw error('User not found!', 404);
 
     user.name = name ?? user.name;
     user.roles = roles ?? user.roles;
@@ -82,8 +84,8 @@ const patchUserById = async (req, res, next) => {
     await user.save();
 
     res.status(200).json(user);
-  } catch (e) {
-    next(e);
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -93,19 +95,19 @@ const deleteUserById = async (req, res, next) => {
   try {
     const user = await userService.findUserByProperty('_id', userId);
 
-    if (!user) throw error('User not found', 404);
+    if (!user) throw error('User not found!', 404);
 
     await user.remove();
 
     return res.status(203).send();
-  } catch (e) {
-    next(e);
+  } catch (err) {
+    next(err);
   }
 };
 
 module.exports = {
   getUsers,
-  getUserById,
+  getUserByID,
   postUser,
   putUserById,
   patchUserById,
